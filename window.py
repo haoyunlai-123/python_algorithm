@@ -166,6 +166,33 @@ class Solution:
             if a != 0: ans += 1 if(num % a == 0) else 0
         return ans
 
+    # 1379
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        ans: TreeNode
+        def dfs1379(root1,root2) -> None:
+            nonlocal ans
+            if not root1: return
+            if root1.val == target.val:
+                ans = root2
+                return
+            dfs1379(root1.left,root2.left)
+            dfs1379(root1.right,root2.right)
+        dfs1379(original,cloned)
+        return ans
+
+    # 110
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        flag: bool = True
+        def dfs(root) -> int:
+            nonlocal flag
+            if not root: return 0
+            a = dfs(root.left)
+            b = dfs(root.right)
+            if abs(a - b) > 1: flag = False
+            return max(a,b) + 1
+        dfs(root)
+        return flag
+
 
 
 
