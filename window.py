@@ -193,9 +193,21 @@ class Solution:
         dfs(root)
         return flag
 
-
-
-
+    # 508
+    def findFrequentTreeSum(self, root: Optional[TreeNode]) -> List[int]:
+        mx, ans, hash = 0, [], defaultdict(int)
+        def dfs(root) -> int:
+            nonlocal mx
+            if not root: return 0
+            val = root.val + dfs(root.left) + dfs(root.right)
+            hash[val] += 1
+            mx = max(mx,hash[val])
+            return val
+        dfs(root)
+        for key in hash:
+            if hash[key] == mx:
+                ans.append(key)
+        return ans
 # 303
 class NumArray:
 
