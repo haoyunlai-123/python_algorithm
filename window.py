@@ -208,6 +208,34 @@ class Solution:
             if hash[key] == mx:
                 ans.append(key)
         return ans
+
+    # 53
+    # kadane 算法
+    def maxSubArray(self, nums: List[int]) -> int:
+        cur = max1 = nums[0]
+        for i in range(1,len(nums)):
+            cur = max(nums[i],cur + nums[i])
+            max1 = max(max1,cur)
+        return max1
+
+    # 2606
+    def maximumCostSubstring(self, s: str, chars: str, vals: List[int]) -> int:
+        hash = [-1_001] * 26
+        for i,ch in enumerate(chars):
+            a = ord(ch) - ord('a')
+            if hash[a] == -1001:
+                hash[a] = vals[a]
+        for i,num in enumerate(hash):
+            if num == -1001:
+                hash[i] = i + 1
+        cur = max1 = hash[ord(s[0]) - ord('a')]
+        for i in range(1, len(s)):
+            a = ord(s[i]) - ord('a')
+            cur = max(hash[a], hash[a] + cur)
+            max1 = max(max1,cur)
+        return max1 if (max1 > 0) else 0
+
+
 # 303
 class NumArray:
 
